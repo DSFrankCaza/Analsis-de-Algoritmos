@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-MX" xml:lang="es-MX"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="José Francisco Cázares Marroquín">
+
+<title>5&nbsp; 4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación. – Analisis de Algoritmos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./CazaresJose-U5-T1.html" rel="next">
+<link href="./CazaresJose-U3-T1.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1092c56c6cadf2eb47b1bc8063ab382a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ef31e3f4d9d6eef55c54bdf6b9cd68ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./CazaresJose-U4-T1.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación.</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación.</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar todo el código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Ocultar todo el código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver el código fuente</a></li></ul></div></div>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor/a</div>
+      <div class="quarto-title-meta-contents">
+               <p>José Francisco Cázares Marroquín </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Fecha de publicación</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">1 de abril de 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisis de Algoritmos</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DSFrankCaza/Analsis-de-Algoritmos" title="Ejecutar el código" class="quarto-navigation-tool px-1" aria-label="Ejecutar el código"><i class="bi bi-github"></i></a>
+    <a href="./Analisis-de-Algoritmos.pdf" title="Descargar PDF" class="quarto-navigation-tool px-1" aria-label="Descargar PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U1-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">1A Reporte escrito. Experimentos y análisis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U2-T2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2A Reporte escrito. Experimentos y análisis de estructuras de datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U3-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3A. Reporte escrito. Experimentos y análisis de algoritmos de ordenamiento.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U4-T1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U5-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">5A. Reporte escrito. Experimentos y análisis de algoritmos de intersección de conjuntos</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">6</span> Introducción</a></li>
+  <li><a href="#metodología" id="toc-metodología" class="nav-link" data-scroll-target="#metodología"><span class="header-section-number">7</span> Metodología</a></li>
+  <li><a href="#implementación-de-los-algoritmos" id="toc-implementación-de-los-algoritmos" class="nav-link" data-scroll-target="#implementación-de-los-algoritmos"><span class="header-section-number">8</span> Implementación de los algoritmos</a></li>
+  <li><a href="#análisis-de-resultados" id="toc-análisis-de-resultados" class="nav-link" data-scroll-target="#análisis-de-resultados"><span class="header-section-number">9</span> Análisis de Resultados</a>
+  <ul class="collapse">
+  <li><a href="#comparación-de-tiempos-de-ejecución" id="toc-comparación-de-tiempos-de-ejecución" class="nav-link" data-scroll-target="#comparación-de-tiempos-de-ejecución"><span class="header-section-number">9.1</span> Comparación de tiempos de ejecución</a></li>
+  <li><a href="#numero-de-comparaciones" id="toc-numero-de-comparaciones" class="nav-link" data-scroll-target="#numero-de-comparaciones"><span class="header-section-number">9.2</span> Numero de Comparaciones</a></li>
+  </ul></li>
+  <li><a href="#conclusión" id="toc-conclusión" class="nav-link" data-scroll-target="#conclusión"><span class="header-section-number">10</span> Conclusión</a>
+  <ul class="collapse">
+  <li><a href="#lista-de-cambios" id="toc-lista-de-cambios" class="nav-link" data-scroll-target="#lista-de-cambios"><span class="header-section-number">10.1</span> Lista de Cambios</a></li>
+  </ul></li>
+  <li><a href="#bibliografía" id="toc-bibliografía" class="nav-link" data-scroll-target="#bibliografía"><span class="header-section-number">11</span> Bibliografía</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introducción" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Introducción</h1>
+<p>El análisis experimental de algoritmos de búsqueda es esencial para optimizar la recuperación de información en diversas aplicaciones, desde bases de datos hasta sistemas de archivos distribuidos. Este reporte se enfoca en la implementación y comparación de cinco algoritmos de búsqueda distintos: Búsqueda Binaria Acotada, Búsqueda Secuencial B0, Búsqueda No Acotada B1, Búsqueda No Acotada B2, y Búsqueda basada en la estructura de datos SkipList.</p>
+<p>La eficiencia de un algoritmo de búsqueda puede medirse en términos de tiempo de ejecución y número de comparaciones realizadas. Este análisis permitirá identificar cuáles de los algoritmos son más adecuados para diferentes tipos de datos y consultas, considerando tanto la eficiencia temporal como la eficiencia en cuanto a número de operaciones realizadas.</p>
+</section>
+<section id="metodología" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Metodología</h1>
+<p>Se implementarán y compararán los siguientes algoritmos de búsqueda:</p>
+<ol type="1">
+<li><strong>Búsqueda Binaria Acotada</strong>: Un algoritmo eficiente para listas ordenadas. Su complejidad promedio es <span class="math inline">\(O(\log n)\)</span>.</li>
+<li><strong>Búsqueda Secuencial B0</strong>: Algoritmo simple que revisa cada elemento de la lista secuencialmente. Su complejidad promedio es <span class="math inline">\(O(n)\)</span>.</li>
+<li><strong>Búsqueda No Acotada B1</strong>: Algoritmo que comienza con un paso pequeño y lo incrementa exponencialmente hasta que se encuentra el elemento o se excede el rango.</li>
+<li><strong>Búsqueda No Acotada B2</strong>: Algoritmo que emplea saltos de tamaño fijo para dividir la búsqueda en segmentos, seguido de una búsqueda lineal dentro del segmento correspondiente.</li>
+<li><strong>Búsqueda mediante SkipList</strong>: Aprovecha la estructura de listas enlazadas con múltiples niveles para optimizar las operaciones de búsqueda.</li>
+</ol>
+<p>Se utilizarán archivos con diferentes distribuciones de datos para evaluar el rendimiento de cada algoritmo. Cada consulta se medirá en términos de:</p>
+<ul>
+<li><strong>Tiempo de ejecución</strong>.</li>
+<li><strong>Número de comparaciones realizadas</strong>.</li>
+</ul>
+</section>
+<section id="implementación-de-los-algoritmos" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Implementación de los algoritmos</h1>
+<div id="3f07b427" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Tuple, Dict</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda Binaria Acotada con rango</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search_range(arr: List[<span class="bu">int</span>], left: <span class="bu">int</span>, right: <span class="bu">int</span>, target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (left <span class="op">+</span> right) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[mid] <span class="op">==</span> target:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> arr[mid] <span class="op">&lt;</span> target:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda Secuencial B0 (ordenada)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sequential_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> element <span class="kw">in</span> arr:</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> element <span class="op">==</span> target:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> element <span class="op">&gt;</span> target:</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda No Acotada B1 (Saltos)</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jump_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    step <span class="op">=</span> <span class="bu">int</span>(n <span class="op">**</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    prev <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> prev <span class="op">&lt;</span> n <span class="kw">and</span> arr[<span class="bu">min</span>(prev <span class="op">+</span> step, n) <span class="op">-</span> <span class="dv">1</span>] <span class="op">&lt;</span> target:</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        prev <span class="op">+=</span> step</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(prev, <span class="bu">min</span>(prev <span class="op">+</span> step, n)):</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[idx] <span class="op">==</span> target:</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> arr[idx] <span class="op">&gt;</span> target:</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda No Acotada B2 (Exponencial)</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exponential_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> arr[<span class="dv">0</span>] <span class="op">==</span> target:</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> index <span class="op">&lt;</span> n <span class="kw">and</span> arr[index] <span class="op">&lt;</span> target:</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        index <span class="op">*=</span> <span class="dv">2</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    left <span class="op">=</span> index <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    right <span class="op">=</span> <span class="bu">min</span>(index, n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    found, binary_comparisons <span class="op">=</span> binary_search_range(arr, left, right, target)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> found, comparisons <span class="op">+</span> binary_comparisons</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase SkipList</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, key, level):</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.key <span class="op">=</span> key</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.forward <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (level <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SkipList:</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, max_level<span class="op">=</span><span class="dv">16</span>, p<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.max_level <span class="op">=</span> max_level</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.p <span class="op">=</span> p</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.header <span class="op">=</span> Node(<span class="op">-</span><span class="dv">1</span>, max_level)</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.level <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> random_level(<span class="va">self</span>):</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>        lvl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> random.random() <span class="op">&lt;</span> <span class="va">self</span>.p <span class="kw">and</span> lvl <span class="op">&lt;</span> <span class="va">self</span>.max_level:</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>            lvl <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lvl</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> insert(<span class="va">self</span>, key):</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>        update <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (<span class="va">self</span>.max_level <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> current.forward[i] <span class="kw">and</span> current.forward[i].key <span class="op">&lt;</span> key:</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>                current <span class="op">=</span> current.forward[i]</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>            update[i] <span class="op">=</span> current</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>        lvl <span class="op">=</span> <span class="va">self</span>.random_level()</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> lvl <span class="op">&gt;</span> <span class="va">self</span>.level:</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level <span class="op">+</span> <span class="dv">1</span>, lvl <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>                update[i] <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.level <span class="op">=</span> lvl</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> Node(key, lvl)</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(lvl <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>            node.forward[i] <span class="op">=</span> update[i].forward[i]</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>            update[i].forward[i] <span class="op">=</span> node</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, key) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> current.forward[i] <span class="kw">and</span> current.forward[i].key <span class="op">&lt;</span> key:</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>                comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>                current <span class="op">=</span> current.forward[i]</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> current.forward[<span class="dv">0</span>]</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current <span class="kw">and</span> current.key <span class="op">==</span> key:</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para cargar archivos JSON</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> json.load(f)</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data[<span class="st">'reunion'</span>]</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_queries(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> json.load(f)</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(data, <span class="bu">list</span>):</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">'queries'</span> <span class="kw">in</span> data:</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data[<span class="st">'queries'</span>]</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Formato desconocido para el archivo de consultas"</span>)</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_search_methods(data_file: <span class="bu">str</span>, query_file: <span class="bu">str</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> load_data(data_file)</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>    queries <span class="op">=</span> load_queries(query_file)</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>    methods <span class="op">=</span> {</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>        <span class="st">'binary_search'</span>: binary_search_range,</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>        <span class="st">'sequential_search'</span>: sequential_search,</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>        <span class="st">'jump_search'</span>: jump_search,</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>        <span class="st">'exponential_search'</span>: exponential_search,</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>        <span class="st">'skiplist_search'</span>: SkipList().search</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> method_name, method <span class="kw">in</span> methods.items():</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>        total_time <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>        total_comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> method_name <span class="op">==</span> <span class="st">'skiplist_search'</span>:</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>            skiplist <span class="op">=</span> SkipList()</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> item <span class="kw">in</span> data:</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>                skiplist.insert(item)</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> query <span class="kw">in</span> queries:</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>            start_time <span class="op">=</span> time.time()</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> method_name <span class="op">==</span> <span class="st">'skiplist_search'</span>:</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> skiplist.search(query)</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> method_name <span class="op">==</span> <span class="st">'binary_search'</span>:</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> method(data, <span class="dv">0</span>, <span class="bu">len</span>(data) <span class="op">-</span> <span class="dv">1</span>, query)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> method(data, query)</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>            elapsed_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>            total_time <span class="op">+=</span> elapsed_time</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>            total_comparisons <span class="op">+=</span> comparisons</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>        results.append([method_name, query_file, total_time, total_comparisons])</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'Algoritmo'</span>, <span class="st">'Archivo de Consulta'</span>, <span class="st">'Tiempo Total'</span>, <span class="st">'Comparaciones Totales'</span>])</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_results</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accumulate_results(data_files: List[<span class="bu">str</span>], query_files: List[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>    all_results <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> data_file <span class="kw">in</span> data_files:</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> query_file <span class="kw">in</span> query_files:</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>            df_results <span class="op">=</span> evaluate_search_methods(data_file, query_file)</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>            all_results <span class="op">=</span> pd.concat([all_results, df_results], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> all_results</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_results_per_algorithm(df: pd.DataFrame, title: <span class="bu">str</span>, filename: <span class="bu">str</span>):</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>    algorithms <span class="op">=</span> df[<span class="st">'Algoritmo'</span>].unique()</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> algorithm <span class="kw">in</span> algorithms:</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>        subset <span class="op">=</span> df[df[<span class="st">'Algoritmo'</span>] <span class="op">==</span> algorithm]</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>        plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot Tiempo Total por archivo de consulta</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>        plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>        plt.plot(subset[<span class="st">'Archivo de Consulta'</span>], subset[<span class="st">'Tiempo Total'</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'Tiempo Total - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>        plt.xlabel(<span class="st">'Archivo de Consulta'</span>)</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>        plt.ylabel(<span class="st">'Tiempo Total (s)'</span>)</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot Comparaciones Totales por archivo de consulta</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>        plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>        plt.plot(subset[<span class="st">'Archivo de Consulta'</span>], subset[<span class="st">'Comparaciones Totales'</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'Comparaciones Totales - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>        plt.xlabel(<span class="st">'Archivo de Consulta'</span>)</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>        plt.ylabel(<span class="st">'Comparaciones Totales'</span>)</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>        plt.suptitle(<span class="ss">f'</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>        plt.savefig(<span class="ss">f'</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">.png'</span>)</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_latex_table(df: pd.DataFrame, filename: <span class="bu">str</span>):</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>    latex_table <span class="op">=</span> df.to_latex(index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'w'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>        f.write(latex_table)</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a><span class="co"># Archivos de datos y consultas</span></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>data_files <span class="op">=</span> [<span class="st">"P=016.json"</span>]</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>query_files <span class="op">=</span> [<span class="st">"consultas-1-listas-posteo.json"</span>, <span class="st">"consultas-2-listas-posteo.json"</span>, <span class="st">"consultas-3-listas-posteo.json"</span>, <span class="st">"consultas-4-listas-posteo.json"</span>]</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> query_file <span class="kw">in</span> query_files:</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> accumulate_results(data_files, query_files)</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>    plot_results_per_algorithm(df_results, <span class="ss">f" "</span>, <span class="ss">f"result_</span><span class="sc">{</span>data_files<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>query_file<span class="sc">}</span><span class="ss">.png"</span>)</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>    generate_latex_table(df_results, <span class="ss">f"result_</span><span class="sc">{</span>data_files<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>query_file<span class="sc">}</span><span class="ss">.tex"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="análisis-de-resultados" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Análisis de Resultados</h1>
+<p>En este análisis se evaluaron cinco algoritmos de búsqueda utilizando cuatro archivos de consultas con diferentes distribuciones de datos. Los algoritmos evaluados fueron: Búsqueda Binaria Acotada, Búsqueda Secuencial, Búsqueda No Acotada (Saltos y Exponencial) y Búsqueda con SkipList. Las gráficas generadas (Figs. 1-5) presentan el Tiempo Total de Ejecución y el Número Total de Comparaciones para cada algoritmo en función del archivo de consulta utilizado.</p>
+<p>La <strong>Tabla 1</strong> muestra los tiempos promedio de ejecución y Número de comparaciones para cada algoritmo y cada conjunto de datos</p>
+<section id="comparación-de-tiempos-de-ejecución" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="comparación-de-tiempos-de-ejecución"><span class="header-section-number">9.1</span> Comparación de tiempos de ejecución</h2>
+<p>El tiempo de ejecución es un criterio esencial para evaluar la eficiencia de los algoritmos de búsqueda, especialmente cuando se aplican a grandes volúmenes de datos. Según <span class="citation" data-cites="cormen2009">(<a href="#ref-cormen2009" role="doc-biblioref">Cormen et&nbsp;al. 2009a</a>)</span> y <span class="citation" data-cites="sedgewick2011">(<a href="#ref-sedgewick2011" role="doc-biblioref">Sedgewick y Wayne 2011a</a>)</span>, la eficiencia de un algoritmo puede ser evaluada por su complejidad computacional, pero también debe considerarse el costo constante asociado a cada operación <span class="citation" data-cites="knuth1998">(<a href="#ref-knuth1998" role="doc-biblioref">Knuth 1998a</a>)</span>.</p>
+<ul>
+<li><p>Búsqueda Binaria Acotada: <span class="math inline">\(O(log (n))\)</span>. Requiere que los datos estén ordenados, lo cual le permite dividir la lista repetidamente a la mitad, resultando en un tiempo de ejecución bajo en todos los archivos de consulta. Como se observa en la Figura 1, el tiempo de ejecución se mantiene bajo incluso con consultas más extensas, aunque presenta un pequeño aumento en la consulta 4 debido al mayor volumen de datos <span class="citation" data-cites="sedgewick2011a">(<a href="#ref-sedgewick2011a" role="doc-biblioref">Sedgewick y Wayne 2011b</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="binary_search.png" class="img-fluid figure-img"></p>
+<figcaption>Resultados Busqueda Binaria</figcaption>
+</figure>
+</div></li>
+<li><p>Búsqueda Secuencial: <span class="math inline">\(O(n)\)</span>. Este método revisa cada elemento hasta encontrar el objetivo, lo que lo hace ineficiente con grandes conjuntos de datos. En la Figura 2, se muestra un comportamiento creciente en el tiempo de ejecución y el número de comparaciones conforme el numero de datos aumenta.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sequential_search.png" class="img-fluid figure-img"></p>
+<figcaption>Resultados Busqueda Secuencial</figcaption>
+</figure>
+</div></li>
+<li><p>Búsqueda No Acotada - Saltos: <span class="math inline">\(O(\sqrt{n})\)</span>. Este algoritmo mejora la búsqueda lineal dividiendo la búsqueda en bloques, pero se ve afectado significativamente cuando los archivos de consulta crecen en tamaño, como se muestra en la Figura 3. <span class="citation" data-cites="bentley2000">(<a href="#ref-bentley2000" role="doc-biblioref">Bentley 2000a</a>)</span>destacó que este método es útil cuando se anticipa un gran número de consultas repetidas sobre un mismo conjunto de datos.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="jump_search.png" class="img-fluid figure-img"></p>
+<figcaption>Resultados Busqueda No Acotada - Saltos</figcaption>
+</figure>
+</div></li>
+<li><p>Búsqueda No Acotada - Exponencial: <span class="math inline">\(O(log n)\)</span>) para la búsqueda en el rango encontrado. Este método muestra buenos resultados debido a su naturaleza logarítmica, aunque su rendimiento disminuye en conjuntos de datos más extensos, como se muestra en la Figura 4. Su eficiencia se debe a que encuentra un rango apropiado rápidamente y luego aplica búsqueda binaria <span class="citation" data-cites="knuth1998a">(<a href="#ref-knuth1998a" role="doc-biblioref">Knuth 1998b</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="exponential_search.png" class="img-fluid figure-img"></p>
+<figcaption>Resultados Busqueda No Acotada - Exponencial</figcaption>
+</figure>
+</div></li>
+<li><p>SkipList: <span class="math inline">\(O(log n)\)</span> para búsquedas promedio. Este método presenta resultados consistentes con su complejidad teórica, aunque su rendimiento se degrada ligeramente conforme aumenta la longitud de las consultas, como se observa en la Figura 5 <span class="citation" data-cites="pugh1990">(<a href="#ref-pugh1990" role="doc-biblioref">Pugh 1990</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="skiplist_search.png" class="img-fluid figure-img"></p>
+<figcaption>Resultados Busqueda por SkipList</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section id="numero-de-comparaciones" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="numero-de-comparaciones"><span class="header-section-number">9.2</span> Numero de Comparaciones</h2>
+<ul>
+<li><p>El número de comparaciones es una métrica esencial para evaluar la eficiencia algorítmica, ya que afecta directamente el tiempo de ejecución:</p></li>
+<li><p>Búsqueda Secuencial: Este algoritmo muestra el mayor número de comparaciones, con valores cercanos a 7,,687,105 para cada archivo de consulta (Figura 4). Este comportamiento se debe a su naturaleza lineal y al gran tamaño de los archivos.</p></li>
+<li><p>Búsqueda Binaria: Mantiene un número bajo de comparaciones (110,000) debido a su división recursiva de los datos (Figura 1). Esto concuerda con su complejidad <span class="math inline">\(O(log n)\)</span> <span class="citation" data-cites="cormen2009a">(<a href="#ref-cormen2009a" role="doc-biblioref">Cormen et&nbsp;al. 2009b</a>)</span>.</p></li>
+<li><p>Búsqueda por Saltos: Presenta valores estables de 10,000 comparaciones en listas más pequeñas y aumenta hasta 536,270 en la lista mas extensa.</p></li>
+<li><p>Búsqueda Exponencial: Tiene un número de comparaciones bajo (20,000) cuando el objetivo se encuentra dentro de un rango pequeño. Sin embargo, el número de comparaciones aumenta significativamente en el archivo de consultas 4 debido al aumento en la cantidad de datos (Figura 2).</p></li>
+<li><p>SkipList: Similar al comportamiento de la búsqueda exponencial, mantiene un número bajo de comparaciones cuando el tamaño de las consultas es razonable (10,000), pero aumenta con datos más extensos (Figura 5).</p></li>
+</ul>
+<p>Los resultados obtenidos concuerdan con los hallazgos de <span class="citation" data-cites="sedgewick2011b">(<a href="#ref-sedgewick2011b" role="doc-biblioref">Sedgewick y Wayne 2011c</a>)</span>, <span class="citation" data-cites="knuth1998b">(<a href="#ref-knuth1998b" role="doc-biblioref">Knuth 1998c</a>)</span>y <span class="citation" data-cites="cormen2009b">(<a href="#ref-cormen2009b" role="doc-biblioref">Cormen et&nbsp;al. 2009c</a>)</span>, quienes destacan la superioridad de algoritmos con complejidad <span class="math inline">\(O(log n)\)</span> frente a aquellos con complejidad lineal <span class="math inline">\(O(n)\)</span>. Además, <span class="citation" data-cites="bentley2000a">(<a href="#ref-bentley2000a" role="doc-biblioref">Bentley 2000b</a>)</span> destaca la importancia de utilizar métodos especializados como la búsqueda exponencial y SkipList cuando se requiere eficiencia en datos ordenados.</p>
+</section>
+</section>
+<section id="conclusión" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Conclusión</h1>
+<p>En conclusión, los algoritmos basados en búsquedas logarítmicas (Binaria y SkipList) son claramente superiores en términos de eficiencia. Los algoritmos lineales, como la búsqueda secuencial, exponencial y de saltos solo son adecuados para conjuntos de datos pequeños o cuando no se requiere un rendimiento óptimo. Se recomienda el uso de búsqueda binaria o exponencial en situaciones donde se dispone de datos ordenados, y el uso de SkipList para estructuras dinámicas donde se requiere inserción rápida y búsqueda eficiente.</p>
+<section id="lista-de-cambios" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="lista-de-cambios"><span class="header-section-number">10.1</span> Lista de Cambios</h2>
+<ul>
+<li><p>Se reemplazó el uso de arr[a:b] por una función que evita copias innecesarias.</p></li>
+<li><p>Se corrigió la búsqueda secuencial para aprovechar el orden de la lista.</p></li>
+<li><p>Se revisaron los algoritmos de búsqueda no acotada para incorporar: element&gt;target.</p></li>
+<li><p>Se actualizó el analisis de resultados y conclusiones.</p></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Bibliografía</h1>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bentley2000" class="csl-entry" role="listitem">
+Bentley, Jon Louis. 2000a. <em>Programming Pearls</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-bentley2000a" class="csl-entry" role="listitem">
+———. 2000b. <em>Programming Pearls</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-cormen2009" class="csl-entry" role="listitem">
+Cormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, y Clifford Stein. 2009a. <em>Introduction to Algorithms, Third Edition</em>. MIT Press.
+</div>
+<div id="ref-cormen2009a" class="csl-entry" role="listitem">
+———. 2009b. <em>Introduction to Algorithms, Third Edition</em>. MIT Press.
+</div>
+<div id="ref-cormen2009b" class="csl-entry" role="listitem">
+———. 2009c. <em>Introduction to Algorithms, Third Edition</em>. MIT Press.
+</div>
+<div id="ref-knuth1998" class="csl-entry" role="listitem">
+Knuth, Donald E. 1998a. <em>The Art of Computer Programming: Sorting and Searching, Volume 3</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-knuth1998a" class="csl-entry" role="listitem">
+———. 1998b. <em>The Art of Computer Programming: Sorting and Searching, Volume 3</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-knuth1998b" class="csl-entry" role="listitem">
+———. 1998c. <em>The Art of Computer Programming: Sorting and Searching, Volume 3</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-pugh1990" class="csl-entry" role="listitem">
+Pugh, William. 1990. <span>“Skip lists: a probabilistic alternative to balanced trees”</span>. <em>Commun. ACM</em> 33 (6): 668676. <a href="https://doi.org/10.1145/78973.78977">https://doi.org/10.1145/78973.78977</a>.
+</div>
+<div id="ref-sedgewick2011" class="csl-entry" role="listitem">
+Sedgewick, Robert, y Kevin Wayne. 2011a. <em>Algorithms</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-sedgewick2011a" class="csl-entry" role="listitem">
+———. 2011b. <em>Algorithms</em>. Addison-Wesley Professional.
+</div>
+<div id="ref-sedgewick2011b" class="csl-entry" role="listitem">
+———. 2011c. <em>Algorithms</em>. Addison-Wesley Professional.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/DSFrankCaza\.github\.io\/Analsis-de-Algoritmos");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./CazaresJose-U3-T1.html" class="pagination-link" aria-label="3A. Reporte escrito. Experimentos y análisis de algoritmos de ordenamiento.">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3A. Reporte escrito. Experimentos y análisis de algoritmos de ordenamiento.</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./CazaresJose-U5-T1.html" class="pagination-link" aria-label="5A. Reporte escrito. Experimentos y análisis de algoritmos de intersección de conjuntos">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">5A. Reporte escrito. Experimentos y análisis de algoritmos de intersección de conjuntos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación."</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "José Francisco Cázares Marroquín"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "04/01/2025"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    lang: es-MX</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    css: styles.css</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references4.bib</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introducción</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>El análisis experimental de algoritmos de búsqueda es esencial para optimizar la recuperación de información en diversas aplicaciones, desde bases de datos hasta sistemas de archivos distribuidos. Este reporte se enfoca en la implementación y comparación de cinco algoritmos de búsqueda distintos: Búsqueda Binaria Acotada, Búsqueda Secuencial B0, Búsqueda No Acotada B1, Búsqueda No Acotada B2, y Búsqueda basada en la estructura de datos SkipList.</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>La eficiencia de un algoritmo de búsqueda puede medirse en términos de tiempo de ejecución y número de comparaciones realizadas. Este análisis permitirá identificar cuáles de los algoritmos son más adecuados para diferentes tipos de datos y consultas, considerando tanto la eficiencia temporal como la eficiencia en cuanto a número de operaciones realizadas.</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu"># Metodología</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Se implementarán y compararán los siguientes algoritmos de búsqueda:</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Búsqueda Binaria Acotada**: Un algoritmo eficiente para listas ordenadas. Su complejidad promedio es $O(\log n)$.</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Búsqueda Secuencial B0**: Algoritmo simple que revisa cada elemento de la lista secuencialmente. Su complejidad promedio es $O(n)$.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Búsqueda No Acotada B1**: Algoritmo que comienza con un paso pequeño y lo incrementa exponencialmente hasta que se encuentra el elemento o se excede el rango.</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Búsqueda No Acotada B2**: Algoritmo que emplea saltos de tamaño fijo para dividir la búsqueda en segmentos, seguido de una búsqueda lineal dentro del segmento correspondiente.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Búsqueda mediante SkipList**: Aprovecha la estructura de listas enlazadas con múltiples niveles para optimizar las operaciones de búsqueda.</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>Se utilizarán archivos con diferentes distribuciones de datos para evaluar el rendimiento de cada algoritmo. Cada consulta se medirá en términos de:</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Tiempo de ejecución**.</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Número de comparaciones realizadas**.</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Implementación de los algoritmos</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Tuple, Dict</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda Binaria Acotada con rango</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search_range(arr: List[<span class="bu">int</span>], left: <span class="bu">int</span>, right: <span class="bu">int</span>, target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (left <span class="op">+</span> right) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[mid] <span class="op">==</span> target:</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> arr[mid] <span class="op">&lt;</span> target:</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda Secuencial B0 (ordenada)</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sequential_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> element <span class="kw">in</span> arr:</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> element <span class="op">==</span> target:</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> element <span class="op">&gt;</span> target:</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda No Acotada B1 (Saltos)</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jump_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    step <span class="op">=</span> <span class="bu">int</span>(n <span class="op">**</span> <span class="fl">0.5</span>)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    prev <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> prev <span class="op">&lt;</span> n <span class="kw">and</span> arr[<span class="bu">min</span>(prev <span class="op">+</span> step, n) <span class="op">-</span> <span class="dv">1</span>] <span class="op">&lt;</span> target:</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        prev <span class="op">+=</span> step</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(prev, <span class="bu">min</span>(prev <span class="op">+</span> step, n)):</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[idx] <span class="op">==</span> target:</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> arr[idx] <span class="op">&gt;</span> target:</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda No Acotada B2 (Exponencial)</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exponential_search(arr: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(arr)</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    comparisons <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> arr[<span class="dv">0</span>] <span class="op">==</span> target:</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> index <span class="op">&lt;</span> n <span class="kw">and</span> arr[index] <span class="op">&lt;</span> target:</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>        index <span class="op">*=</span> <span class="dv">2</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    left <span class="op">=</span> index <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    right <span class="op">=</span> <span class="bu">min</span>(index, n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    found, binary_comparisons <span class="op">=</span> binary_search_range(arr, left, right, target)</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> found, comparisons <span class="op">+</span> binary_comparisons</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase SkipList</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, key, level):</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.key <span class="op">=</span> key</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.forward <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (level <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SkipList:</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, max_level<span class="op">=</span><span class="dv">16</span>, p<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.max_level <span class="op">=</span> max_level</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.p <span class="op">=</span> p</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.header <span class="op">=</span> Node(<span class="op">-</span><span class="dv">1</span>, max_level)</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.level <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> random_level(<span class="va">self</span>):</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>        lvl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> random.random() <span class="op">&lt;</span> <span class="va">self</span>.p <span class="kw">and</span> lvl <span class="op">&lt;</span> <span class="va">self</span>.max_level:</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>            lvl <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lvl</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> insert(<span class="va">self</span>, key):</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>        update <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (<span class="va">self</span>.max_level <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> current.forward[i] <span class="kw">and</span> current.forward[i].key <span class="op">&lt;</span> key:</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>                current <span class="op">=</span> current.forward[i]</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>            update[i] <span class="op">=</span> current</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>        lvl <span class="op">=</span> <span class="va">self</span>.random_level()</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> lvl <span class="op">&gt;</span> <span class="va">self</span>.level:</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level <span class="op">+</span> <span class="dv">1</span>, lvl <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>                update[i] <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.level <span class="op">=</span> lvl</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> Node(key, lvl)</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(lvl <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>            node.forward[i] <span class="op">=</span> update[i].forward[i]</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>            update[i].forward[i] <span class="op">=</span> node</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, key) <span class="op">-&gt;</span> Tuple[<span class="bu">bool</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> <span class="va">self</span>.header</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.level, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> current.forward[i] <span class="kw">and</span> current.forward[i].key <span class="op">&lt;</span> key:</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>                comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>                current <span class="op">=</span> current.forward[i]</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> current.forward[<span class="dv">0</span>]</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>        comparisons <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current <span class="kw">and</span> current.key <span class="op">==</span> key:</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span>, comparisons</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span>, comparisons</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para cargar archivos JSON</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> json.load(f)</span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data[<span class="st">'reunion'</span>]</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_queries(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> json.load(f)</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(data, <span class="bu">list</span>):</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">'queries'</span> <span class="kw">in</span> data:</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data[<span class="st">'queries'</span>]</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Formato desconocido para el archivo de consultas"</span>)</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_search_methods(data_file: <span class="bu">str</span>, query_file: <span class="bu">str</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> load_data(data_file)</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>    queries <span class="op">=</span> load_queries(query_file)</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>    methods <span class="op">=</span> {</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>        <span class="st">'binary_search'</span>: binary_search_range,</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>        <span class="st">'sequential_search'</span>: sequential_search,</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>        <span class="st">'jump_search'</span>: jump_search,</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>        <span class="st">'exponential_search'</span>: exponential_search,</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>        <span class="st">'skiplist_search'</span>: SkipList().search</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> method_name, method <span class="kw">in</span> methods.items():</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>        total_time <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>        total_comparisons <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> method_name <span class="op">==</span> <span class="st">'skiplist_search'</span>:</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>            skiplist <span class="op">=</span> SkipList()</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> item <span class="kw">in</span> data:</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>                skiplist.insert(item)</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> query <span class="kw">in</span> queries:</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>            start_time <span class="op">=</span> time.time()</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> method_name <span class="op">==</span> <span class="st">'skiplist_search'</span>:</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> skiplist.search(query)</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> method_name <span class="op">==</span> <span class="st">'binary_search'</span>:</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> method(data, <span class="dv">0</span>, <span class="bu">len</span>(data) <span class="op">-</span> <span class="dv">1</span>, query)</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>                _, comparisons <span class="op">=</span> method(data, query)</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>            elapsed_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>            total_time <span class="op">+=</span> elapsed_time</span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>            total_comparisons <span class="op">+=</span> comparisons</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>        results.append([method_name, query_file, total_time, total_comparisons])</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> pd.DataFrame(results, columns<span class="op">=</span>[<span class="st">'Algoritmo'</span>, <span class="st">'Archivo de Consulta'</span>, <span class="st">'Tiempo Total'</span>, <span class="st">'Comparaciones Totales'</span>])</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_results</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accumulate_results(data_files: List[<span class="bu">str</span>], query_files: List[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>    all_results <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> data_file <span class="kw">in</span> data_files:</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> query_file <span class="kw">in</span> query_files:</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>            df_results <span class="op">=</span> evaluate_search_methods(data_file, query_file)</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>            all_results <span class="op">=</span> pd.concat([all_results, df_results], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> all_results</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_results_per_algorithm(df: pd.DataFrame, title: <span class="bu">str</span>, filename: <span class="bu">str</span>):</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>    algorithms <span class="op">=</span> df[<span class="st">'Algoritmo'</span>].unique()</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> algorithm <span class="kw">in</span> algorithms:</span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>        subset <span class="op">=</span> df[df[<span class="st">'Algoritmo'</span>] <span class="op">==</span> algorithm]</span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>        plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot Tiempo Total por archivo de consulta</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>        plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>        plt.plot(subset[<span class="st">'Archivo de Consulta'</span>], subset[<span class="st">'Tiempo Total'</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'Tiempo Total - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>        plt.xlabel(<span class="st">'Archivo de Consulta'</span>)</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>        plt.ylabel(<span class="st">'Tiempo Total (s)'</span>)</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot Comparaciones Totales por archivo de consulta</span></span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>        plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>        plt.plot(subset[<span class="st">'Archivo de Consulta'</span>], subset[<span class="st">'Comparaciones Totales'</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'Comparaciones Totales - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>        plt.xlabel(<span class="st">'Archivo de Consulta'</span>)</span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>        plt.ylabel(<span class="st">'Comparaciones Totales'</span>)</span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>        plt.suptitle(<span class="ss">f'</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>        plt.savefig(<span class="ss">f'</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>algorithm<span class="sc">}</span><span class="ss">.png'</span>)</span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_latex_table(df: pd.DataFrame, filename: <span class="bu">str</span>):</span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>    latex_table <span class="op">=</span> df.to_latex(index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'w'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>        f.write(latex_table)</span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a><span class="co"># Archivos de datos y consultas</span></span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>data_files <span class="op">=</span> [<span class="st">"P=016.json"</span>]</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>query_files <span class="op">=</span> [<span class="st">"consultas-1-listas-posteo.json"</span>, <span class="st">"consultas-2-listas-posteo.json"</span>, <span class="st">"consultas-3-listas-posteo.json"</span>, <span class="st">"consultas-4-listas-posteo.json"</span>]</span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> query_file <span class="kw">in</span> query_files:</span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>    df_results <span class="op">=</span> accumulate_results(data_files, query_files)</span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>    plot_results_per_algorithm(df_results, <span class="ss">f" "</span>, <span class="ss">f"result_</span><span class="sc">{</span>data_files<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>query_file<span class="sc">}</span><span class="ss">.png"</span>)</span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>    generate_latex_table(df_results, <span class="ss">f"result_</span><span class="sc">{</span>data_files<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>query_file<span class="sc">}</span><span class="ss">.tex"</span>)</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a><span class="fu"># Análisis de Resultados</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>En este análisis se evaluaron cinco algoritmos de búsqueda utilizando cuatro archivos de consultas con diferentes distribuciones de datos. Los algoritmos evaluados fueron: Búsqueda Binaria Acotada, Búsqueda Secuencial, Búsqueda No Acotada (Saltos y Exponencial) y Búsqueda con SkipList. Las gráficas generadas (Figs. 1-5) presentan el Tiempo Total de Ejecución y el Número Total de Comparaciones para cada algoritmo en función del archivo de consulta utilizado.</span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>La **Tabla 1** muestra los tiempos promedio de ejecución y Número de comparaciones para cada algoritmo y cada conjunto de datos</span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>\input{result_<span class="co">[</span><span class="ot">'P=016.json'</span><span class="co">]</span>_consultas-1-listas-posteo.json.tex}</span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparación de tiempos de ejecución</span></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>El tiempo de ejecución es un criterio esencial para evaluar la eficiencia de los algoritmos de búsqueda, especialmente cuando se aplican a grandes volúmenes de datos. Según <span class="co">[</span><span class="ot">@cormen2009</span><span class="co">]</span> y <span class="co">[</span><span class="ot">@sedgewick2011</span><span class="co">]</span>, la eficiencia de un algoritmo puede ser evaluada por su complejidad computacional, pero también debe considerarse el costo constante asociado a cada operación <span class="co">[</span><span class="ot">@knuth1998</span><span class="co">]</span>.</span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda Binaria Acotada: $O(log (n))$. Requiere que los datos estén ordenados, lo cual le permite dividir la lista repetidamente a la mitad, resultando en un tiempo de ejecución bajo en todos los archivos de consulta. Como se observa en la Figura 1, el tiempo de ejecución se mantiene bajo incluso con consultas más extensas, aunque presenta un pequeño aumento en la consulta 4 debido al mayor volumen de datos <span class="co">[</span><span class="ot">@sedgewick2011a</span><span class="co">]</span>.</span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Resultados Busqueda Binaria](binary_search.png)</span></span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda Secuencial: $O(n)$. Este método revisa cada elemento hasta encontrar el objetivo, lo que lo hace ineficiente con grandes conjuntos de datos. En la Figura 2, se muestra un comportamiento creciente en el tiempo de ejecución y el número de comparaciones conforme el numero de datos aumenta.</span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Resultados Busqueda Secuencial](sequential_search.png)</span></span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda No Acotada - Saltos: $O(\sqrt{n})$. Este algoritmo mejora la búsqueda lineal dividiendo la búsqueda en bloques, pero se ve afectado significativamente cuando los archivos de consulta crecen en tamaño, como se muestra en la Figura 3. <span class="co">[</span><span class="ot">@bentley2000</span><span class="co">]</span>destacó que este método es útil cuando se anticipa un gran número de consultas repetidas sobre un mismo conjunto de datos.</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Resultados Busqueda No Acotada - Saltos](jump_search.png)</span></span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda No Acotada - Exponencial: $O(log n)$) para la búsqueda en el rango encontrado. Este método muestra buenos resultados debido a su naturaleza logarítmica, aunque su rendimiento disminuye en conjuntos de datos más extensos, como se muestra en la Figura 4. Su eficiencia se debe a que encuentra un rango apropiado rápidamente y luego aplica búsqueda binaria <span class="co">[</span><span class="ot">@knuth1998a</span><span class="co">]</span>.</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Resultados Busqueda No Acotada - Exponencial](exponential_search.png)</span></span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SkipList: $O(log n)$ para búsquedas promedio. Este método presenta resultados consistentes con su complejidad teórica, aunque su rendimiento se degrada ligeramente conforme aumenta la longitud de las consultas, como se observa en la Figura 5 <span class="co">[</span><span class="ot">@pugh1990</span><span class="co">]</span>.</span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>    <span class="al">![Resultados Busqueda por SkipList](skiplist_search.png)</span></span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a><span class="fu">## Numero de Comparaciones</span></span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>El número de comparaciones es una métrica esencial para evaluar la eficiencia algorítmica, ya que afecta directamente el tiempo de ejecución:</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda Secuencial: Este algoritmo muestra el mayor número de comparaciones, con valores cercanos a 7,,687,105 para cada archivo de consulta (Figura 4). Este comportamiento se debe a su naturaleza lineal y al gran tamaño de los archivos.</span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda Binaria: Mantiene un número bajo de comparaciones (110,000) debido a su división recursiva de los datos (Figura 1). Esto concuerda con su complejidad $O(log n)$ <span class="co">[</span><span class="ot">@cormen2009a</span><span class="co">]</span>.</span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda por Saltos: Presenta valores estables de 10,000 comparaciones en listas más pequeñas y aumenta hasta 536,270 en la lista mas extensa.</span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Búsqueda Exponencial: Tiene un número de comparaciones bajo (20,000) cuando el objetivo se encuentra dentro de un rango pequeño. Sin embargo, el número de comparaciones aumenta significativamente en el archivo de consultas 4 debido al aumento en la cantidad de datos (Figura 2).</span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SkipList: Similar al comportamiento de la búsqueda exponencial, mantiene un número bajo de comparaciones cuando el tamaño de las consultas es razonable (10,000), pero aumenta con datos más extensos (Figura 5).</span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>Los resultados obtenidos concuerdan con los hallazgos de <span class="co">[</span><span class="ot">@sedgewick2011b</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@knuth1998b</span><span class="co">]</span>y <span class="co">[</span><span class="ot">@cormen2009b</span><span class="co">]</span>, quienes destacan la superioridad de algoritmos con complejidad $O(log n)$ frente a aquellos con complejidad lineal $O(n)$. Además, <span class="co">[</span><span class="ot">@bentley2000a</span><span class="co">]</span> destaca la importancia de utilizar métodos especializados como la búsqueda exponencial y SkipList cuando se requiere eficiencia en datos ordenados.</span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusión</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>En conclusión, los algoritmos basados en búsquedas logarítmicas (Binaria y SkipList) son claramente superiores en términos de eficiencia. Los algoritmos lineales, como la búsqueda secuencial, exponencial y de saltos solo son adecuados para conjuntos de datos pequeños o cuando no se requiere un rendimiento óptimo. Se recomienda el uso de búsqueda binaria o exponencial en situaciones donde se dispone de datos ordenados, y el uso de SkipList para estructuras dinámicas donde se requiere inserción rápida y búsqueda eficiente.</span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lista de Cambios</span></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Se reemplazó el uso de arr<span class="sc">\[</span>a:b<span class="sc">\]</span> por una función que evita copias innecesarias.</span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Se corrigió la búsqueda secuencial para aprovechar el orden de la lista.</span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Se revisaron los algoritmos de búsqueda no acotada para incorporar: element<span class="sc">\&gt;</span>target.</span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Se actualizó el analisis de resultados y conclusiones.</span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bibliografía</span></span>
+</code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" class="img-fluid"></a> <br> Esta obra está bajo una <a href="http://creativecommons.org/licenses/by-sa/4.0/">Licencia Creative Commons Atribución-CompartirIgual 4.0 Internacional</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

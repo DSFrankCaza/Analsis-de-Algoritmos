@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-MX" xml:lang="es-MX"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="José Francisco Cázares Marroquín">
+
+<title>2&nbsp; 1A Reporte escrito. Experimentos y análisis – Analisis de Algoritmos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./CazaresJose-U2-T2.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1092c56c6cadf2eb47b1bc8063ab382a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ef31e3f4d9d6eef55c54bdf6b9cd68ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./CazaresJose-U1-T1.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">1A Reporte escrito. Experimentos y análisis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">1A Reporte escrito. Experimentos y análisis</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar todo el código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Ocultar todo el código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver el código fuente</a></li></ul></div></div>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor/a</div>
+      <div class="quarto-title-meta-contents">
+               <p>José Francisco Cázares Marroquín </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Fecha de publicación</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">12 de enero de 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisis de Algoritmos</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DSFrankCaza/Analsis-de-Algoritmos" title="Ejecutar el código" class="quarto-navigation-tool px-1" aria-label="Ejecutar el código"><i class="bi bi-github"></i></a>
+    <a href="./Analisis-de-Algoritmos.pdf" title="Descargar PDF" class="quarto-navigation-tool px-1" aria-label="Descargar PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U1-T1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">1A Reporte escrito. Experimentos y análisis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U2-T2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2A Reporte escrito. Experimentos y análisis de estructuras de datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U3-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3A. Reporte escrito. Experimentos y análisis de algoritmos de ordenamiento.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U4-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">4A. Reporte escrito. Experimentos y análisis de algoritmos de búsqueda por comparación.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CazaresJose-U5-T1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">5A. Reporte escrito. Experimentos y análisis de algoritmos de intersección de conjuntos</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">3</span> Introducción</a></li>
+  <li><a href="#código-utilizado" id="toc-código-utilizado" class="nav-link" data-scroll-target="#código-utilizado"><span class="header-section-number">4</span> Código utilizado</a>
+  <ul class="collapse">
+  <li><a href="#importación-de-librerías" id="toc-importación-de-librerías" class="nav-link" data-scroll-target="#importación-de-librerías"><span class="header-section-number">4.1</span> Importación de librerías</a></li>
+  <li><a href="#funciones-de-órdenes-de-crecimiento" id="toc-funciones-de-órdenes-de-crecimiento" class="nav-link" data-scroll-target="#funciones-de-órdenes-de-crecimiento"><span class="header-section-number">4.2</span> Funciones de órdenes de crecimiento</a></li>
+  <li><a href="#eleccion-del-rango-de-valores-de-n" id="toc-eleccion-del-rango-de-valores-de-n" class="nav-link" data-scroll-target="#eleccion-del-rango-de-valores-de-n"><span class="header-section-number">4.3</span> Eleccion del rango de valores de <span class="math inline">\(n\)</span></a></li>
+  <li><a href="#generación-de-gráficas" id="toc-generación-de-gráficas" class="nav-link" data-scroll-target="#generación-de-gráficas"><span class="header-section-number">4.4</span> Generación de gráficas</a></li>
+  </ul></li>
+  <li><a href="#resultados-y-discusión" id="toc-resultados-y-discusión" class="nav-link" data-scroll-target="#resultados-y-discusión"><span class="header-section-number">5</span> Resultados y Discusión</a>
+  <ul class="collapse">
+  <li><a href="#o1-vs-olog-n" id="toc-o1-vs-olog-n" class="nav-link" data-scroll-target="#o1-vs-olog-n"><span class="header-section-number">5.1</span> <span class="math inline">\(O\)</span>(1) vs <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)</a></li>
+  <li><a href="#on-vs-on-log-n" id="toc-on-vs-on-log-n" class="nav-link" data-scroll-target="#on-vs-on-log-n"><span class="header-section-number">5.2</span> <span class="math inline">\(O(n)\)</span> vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>)</a></li>
+  <li><a href="#on2-vs-on3" id="toc-on2-vs-on3" class="nav-link" data-scroll-target="#on2-vs-on3"><span class="header-section-number">5.3</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>)</a></li>
+  <li><a href="#oan-vs-on" id="toc-oan-vs-on" class="nav-link" data-scroll-target="#oan-vs-on"><span class="header-section-number">5.4</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>)</a></li>
+  <li><a href="#on-vs-onn" id="toc-on-vs-onn" class="nav-link" data-scroll-target="#on-vs-onn"><span class="header-section-number">5.5</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)</a></li>
+  <li><a href="#tabla-de-tiempos-simulados" id="toc-tabla-de-tiempos-simulados" class="nav-link" data-scroll-target="#tabla-de-tiempos-simulados"><span class="header-section-number">5.6</span> Tabla de tiempos simulados</a></li>
+  </ul></li>
+  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones"><span class="header-section-number">6</span> Conclusiones</a>
+  <ul class="collapse">
+  <li><a href="#lista-de-cambios" id="toc-lista-de-cambios" class="nav-link" data-scroll-target="#lista-de-cambios"><span class="header-section-number">6.1</span> Lista de Cambios</a></li>
+  </ul></li>
+  <li><a href="#bibliografía" id="toc-bibliografía" class="nav-link" data-scroll-target="#bibliografía"><span class="header-section-number">7</span> Bibliografía</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introducción" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Introducción</h1>
+<p>El análisis de algoritmos constituye un área fundamental en la informática, ya que permite comprender y predecir el rendimiento de soluciones computacionales en diferentes contextos. En este trabajo se estudiarán los principales órdenes de crecimiento que determinan la eficiencia de los algoritmos, contrastando tanto su impacto teórico como sus implicaciones prácticas a través de simulaciones y análisis visual. Este enfoque proporciona las herramientas necesarias para evaluar el costo computacional de las operaciones en función del tamaño de la entrada, un aspecto clave en el diseño y optimización de soluciones informáticas.</p>
+<p>El crecimiento asintótico, como se detalla en Introduction to Algorithms <span class="citation" data-cites="cormen2022">(<a href="#ref-cormen2022" role="doc-biblioref">Cormen et&nbsp;al. 2022a</a>)</span>, permite clasificar los algoritmos en términos de su rendimiento al trabajar con entradas de gran escala. La notación asintótica—incluyendo <span class="math inline">\(O\)</span>, Θ y Ω —es crucial para modelar estos comportamientos, ya que proporciona una descripción simplificada pero robusta del tiempo de ejecución y uso de recursos, independientemente de factores secundarios como la arquitectura de hardware o el lenguaje de programación utilizado.</p>
+<p>Además, la relevancia de este análisis se extiende al impacto práctico que los algoritmos tienen en sistemas modernos. Según <span class="citation" data-cites="sedgewick2011">(<a href="#ref-sedgewick2011" role="doc-biblioref">Sedgewick y Wayne 2011</a>)</span>, los algoritmos son fundamentales en diversas disciplinas, desde la inteligencia artificial hasta la computación gráfica, y su eficiencia puede ser el factor decisivo en el éxito o fracaso de una aplicación. Por su parte,<span class="citation" data-cites="kleinberg2006">(<a href="#ref-kleinberg2006" role="doc-biblioref">Kleinberg y Tardos 2006a</a>)</span> enfatizan que el análisis de algoritmos no solo implica evaluar su comportamiento en el peor caso, sino también en promedio y en el mejor caso, lo que proporciona una perspectiva más completa sobre su rendimiento en diferentes escenarios.</p>
+<p>A lo largo de este documento se abordan las siguientes comparaciones de los órdenes de crecimiento:</p>
+<ol type="a">
+<li><span class="math inline">\(O(1)\)</span> vs <span class="math inline">\(O(log n)\)</span></li>
+<li><span class="math inline">\(O(n)\)</span> vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>)</li>
+<li><span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>)</li>
+<li><span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>)</li>
+<li><span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)</li>
+</ol>
+<p>Estos casos permiten identificar, tanto en la teoría como en la práctica, cómo diferentes algoritmos escalan con el tamaño de los datos de entrada. Según Cormen et al.&nbsp;(2022), este tipo de análisis no solo facilita una comparación objetiva entre alternativas algorítmicas, sino que también guía el diseño de soluciones eficientes en aplicaciones reales.</p>
+<p>En términos aplicados, el análisis experimental complementa el teórico al proporcionar una validación práctica del comportamiento de los algoritmos bajo condiciones específicas. Las simulaciones incluidas en este trabajo se realizaron utilizando herramientas computacionales modernas que permiten graficar el rendimiento de los órdenes de crecimiento y calcular tiempos de ejecución simulados. Este enfoque, además de ser didáctico, pone en evidencia los límites prácticos de ciertos algoritmos, especialmente aquellos con un crecimiento exponencial o factorial, donde las operaciones se vuelven computacionalmente inviables incluso para tamaños moderados de entrada.</p>
+<p>En síntesis, este trabajo no solo contextualiza los fundamentos teóricos del análisis de algoritmos, sino que también los aplica y analiza mediante experimentación computacional, logrando sintetizar las características más relevantes de cada orden de crecimiento. Este enfoque integral permite al lector comprender cómo los algoritmos pueden ser diseñados, seleccionados y evaluados para resolver problemas reales con una gestión óptima de los recursos computacionales.</p>
+</section>
+<section id="código-utilizado" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Código utilizado</h1>
+<section id="importación-de-librerías" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="importación-de-librerías"><span class="header-section-number">4.1</span> Importación de librerías</h2>
+<p>Se utilizará el lenguaje de programación Python para la demostración de los órdenes de crecimiento, para los requerimientos se importarán las librerías matplotlib para graficar los resultados, numpy para las operaciones matemáticas y pandas para el manejo de los datos.</p>
+<div id="3b103562" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text.usetex"</span>: <span class="va">False</span>,  <span class="co"># No usar LaTeX</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.family"</span>: <span class="st">"serif"</span>,  <span class="co"># Usa una fuente serif general</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.serif"</span>: <span class="st">"Times New Roman"</span>,  <span class="co"># Alternativa compatible</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.size"</span>: <span class="dv">12</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.titlesize"</span>: <span class="dv">14</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.labelsize"</span>: <span class="dv">12</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"xtick.labelsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ytick.labelsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"legend.fontsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"figure.figsize"</span>: (<span class="dv">6</span>, <span class="dv">4</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"grid.alpha"</span>: <span class="fl">0.6</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"grid.linestyle"</span>: <span class="st">"--"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="funciones-de-órdenes-de-crecimiento" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="funciones-de-órdenes-de-crecimiento"><span class="header-section-number">4.2</span> Funciones de órdenes de crecimiento</h2>
+<p>Para mejor manejo del código se definirá una funcion para cada orden de crecimiento, como se muestra en el siguiente código:</p>
+<div id="8bab223e" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> o1(n):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.ones_like(n)  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ologn(n):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.log(n)  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on(n):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n  </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> onlogn(n):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">*</span> np.log(n)  </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on2(n):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> <span class="dv">2</span>  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on3(n):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> <span class="dv">3</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a_n(n, a<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">**</span> n  </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nfact(n):</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([math.factorial(<span class="bu">int</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> n])  </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nn(n):</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> n  <span class="co"># O(n^n)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="eleccion-del-rango-de-valores-de-n" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="eleccion-del-rango-de-valores-de-n"><span class="header-section-number">4.3</span> Eleccion del rango de valores de <span class="math inline">\(n\)</span></h2>
+<p>La teoría nos indica que los órdenes de crecimiento constante (<span class="math inline">\(O(1)\)</span>) o logarítmico (<span class="math inline">\(O(log n)\)</span>) son simples y de bajo costo, por lo que se crea un diccionario donde para el rango seleccionado para los órdenes de crecimiento simples es un rango aproximado de <span class="math inline">\(n=1000\)</span> y conforme el orden de crecimiento se vuelva mas complejo el rango de <span class="math inline">\(n\)</span> disminuye hasta <span class="math inline">\(n=10\)</span>.</p>
+<div id="83d5d5ea" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ranges <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(1) vs O(log n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">1001</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n) vs O(n log n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">1001</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^2) vs O(n^3)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">101</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(a^n) vs O(n!)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">16</span>),  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n!) vs O(n^n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">11</span>)   </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>comparisons <span class="op">=</span> [</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(1)"</span>, o1, <span class="st">"O(log n)"</span>, ologn),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n)"</span>, on, <span class="st">"O(n log n)"</span>, onlogn),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n^2)"</span>, on2, <span class="st">"O(n^3)"</span>, on3),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(2^n)"</span>, <span class="kw">lambda</span> n: a_n(n, <span class="dv">2</span>), <span class="st">"O(n!)"</span>, nfact),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n!)"</span>, nfact, <span class="st">"O(n^n)"</span>, nn)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="generación-de-gráficas" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="generación-de-gráficas"><span class="header-section-number">4.4</span> Generación de gráficas</h2>
+<p>Para el caso de las gráficas se utilizará la librería de matplotlib, para generar las gráficas de cada comparación de orden de crecimiento y su respectivo análisis.</p>
+<div id="7025ded9" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"images"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (label1, func1, label2, func2), range_key <span class="kw">in</span> <span class="bu">zip</span>(comparisons, ranges.keys()):</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    n_values <span class="op">=</span> ranges[range_key]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    y1 <span class="op">=</span> func1(n_values)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    y2 <span class="op">=</span> func2(n_values)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    safe_name <span class="op">=</span> range_key.replace(<span class="st">' '</span>, <span class="st">'_'</span>).replace(<span class="st">'/'</span>, <span class="st">'_'</span>).replace(<span class="st">'^'</span>, <span class="st">''</span>).replace(<span class="st">'%'</span>, <span class="st">''</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    plt.plot(n_values, y1, label<span class="op">=</span>label1, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    plt.plot(n_values, y2, label<span class="op">=</span>label2, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"n"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Orden de crecimiento"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    plt.title(range_key)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="ss">f"images/</span><span class="sc">{</span>safe_name<span class="sc">}</span><span class="ss">.png"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    plt.close()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="58e99153" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nanosecond <span class="op">=</span> <span class="fl">1e-9</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tamanos <span class="op">=</span> [<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">100000</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>tiempo_simulado <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tamano"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">int</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(1)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(logn)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(nlogn)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^2)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^3)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(a^n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>),  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n!)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>)  </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> tamanos:</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    tiempo_simulado <span class="op">=</span> pd.concat([</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        tiempo_simulado,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame({</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Tamano"</span>: [n],</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(1)"</span>: [nanosecond],</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(logn)"</span>: [nanosecond <span class="op">*</span> np.log(n)],</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n)"</span>: [nanosecond <span class="op">*</span> n],</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(nlogn)"</span>: [nanosecond <span class="op">*</span> n <span class="op">*</span> np.log(n)],</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^2)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span><span class="dv">2</span>],</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^3)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span><span class="dv">3</span>],</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(a^n)"</span>: [nanosecond <span class="op">*</span> <span class="dv">2</span><span class="op">**</span>n  <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">1000</span> <span class="cf">else</span> <span class="st">"Overflow"</span> ],  </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n!)"</span>: [nanosecond <span class="op">*</span> math.factorial(n) <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">31</span> <span class="cf">else</span> <span class="st">"Overflow"</span>], </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^n)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span>n <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">31</span> <span class="cf">else</span> <span class="st">"Overflow"</span>],  </span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    ], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_rows"</span>, <span class="va">None</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_columns"</span>, <span class="va">None</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>tiempo_simulado.columns <span class="op">=</span> [</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    col.replace(<span class="st">"^"</span>, <span class="vs">r"\^"</span>).replace(<span class="st">"_"</span>, <span class="vs">r"\_"</span>) <span class="cf">for</span> col <span class="kw">in</span> tiempo_simulado.columns</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>latex_code <span class="op">=</span> <span class="vs">r"""</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="vs">\begin</span><span class="sc">{table}</span><span class="vs">[H]</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="vs">\centering</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="vs">\resizebox{0.85\textwidth}{!}{%</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="vs">"""</span> <span class="op">+</span> tiempo_simulado.to_latex(index<span class="op">=</span><span class="va">False</span>, escape<span class="op">=</span><span class="va">False</span>) <span class="op">+</span> <span class="vs">r"""</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="vs">}</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="vs">\caption{Tiempos simulados para diferentes ordenes de crecimiento.}</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="vs">\label{tab:tiempos_simulados}</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="vs">\end</span><span class="sc">{table}</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="vs">"""</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"tabla_tiempos.tex"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    f.write(latex_code)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="resultados-y-discusión" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Resultados y Discusión</h1>
+<p>A continuación se presentan las gráficas obtenidas para cada comparación de órdenes de crecimiento, acompañadas de un análisis correspondiente.</p>
+<section id="o1-vs-olog-n" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="o1-vs-olog-n"><span class="header-section-number">5.1</span> <span class="math inline">\(O\)</span>(1) vs <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)</h2>
+<div id="CTELOG" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/O(1)_vs_O(log_n).png" class="img-fluid figure-img"></p>
+<figcaption>Comparación <span class="math inline">\(O(1)\)</span> vs <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)</figcaption>
+</figure>
+</div>
+<p>En la Figura 1, se observa cómo el orden constante <span class="math inline">\(O\)</span>(1) se mantiene invariable independientemente del tamaño de entrada, mientras que ( <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>) ) crece lentamente a medida que aumenta el tamaño de la entrada, un ejemplo de una función que tenga un orden de crecimiento logarítmico podría ser la búsqueda binaria en una lista ordenada. El orden de crecimiento constante denota que no importa el tamaño de la entrada; el tiempo de ejecución es el mismo, un ejemplo de esto podria ser el acceder al primer elemento de una lista.</p>
+</section>
+<section id="on-vs-on-log-n" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="on-vs-on-log-n"><span class="header-section-number">5.2</span> <span class="math inline">\(O(n)\)</span> vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/O(n)_vs_O(n_log_n).png" class="img-fluid figure-img"></p>
+<figcaption>Comparación <span class="math inline">\(O(n)\)</span> vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>)</figcaption>
+</figure>
+</div>
+<p>En la Figura 2 se compara el crecimiento lineal (<span class="math inline">\(O(n)\)</span>) con el crecimiento lineal logarítmico (<span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>)), en el primero el tiempo de ejecución crece proporcionalmente al tamaño de la entrada, mientras que el crecimiento lineal logarítmico a entradas más grandes el tiempo de ejecución aumenta varias veces en comparación con el crecimiento lineal. Por dar ejemplos de cada uno un algoritmo de crecimiento lineal puede ser un algoritmo de búsqueda que recorre una lista para encontrar un elemento, mientras que un algoritmo de crecimiento lineal logarítmico es común en algoritmos de ordenamiento, como Merge Sort.</p>
+</section>
+<section id="on2-vs-on3" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="on2-vs-on3"><span class="header-section-number">5.3</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/O(n2)_vs_O(n3).png" class="img-fluid figure-img"></p>
+<figcaption>Comparación <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>)</figcaption>
+</figure>
+</div>
+<p>La comparación del crecimiento cuadrático y el crecimiento cúbico se observan en la figura 3. Según sea el caso, el tiempo de ejecucion crece con el cuadrado o el cubo del tamaño de la entrada. Siendo que el crecimiento cúbico alcanza mayores tiempos de ejecución con menores tamaños de entrada. El crecimiento cuadrático se puede observar en algoritmos de ordenamiento simples como Bubble Sort, mientras que el crecimiento cúbico es común en algoritmos que involucran múltiples bucles anidados procesando una matriz tridimensional.</p>
+</section>
+<section id="oan-vs-on" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="oan-vs-on"><span class="header-section-number">5.4</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/O(an)_vs_O(n!).png" class="img-fluid figure-img"></p>
+<figcaption>Comparación <span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>)</figcaption>
+</figure>
+</div>
+<p>En el caso de la comparación del crecimiento exponencial con base a y el crecimiento factorial. Los algoritmos de crecimiento factorial son más rapidos que los de crecimiento exponencial ya que, ambos crecen rápidamente aunque con pequeños tamaños de de entrada se ve una clara aceleración de crecimiento de parte del algoritmo factorial. Ambos crecen rápidamente, y llegan al punto de que el tiempo de ejecución aumenta tanto que los algoritmos se vuelven imprácticos por su alto tiempo de ejecución, para el crecimiento exponencial con base a se puede decir que si <span class="math inline">\(n&gt;20\)</span> el tiempo de ejecución se vuelve impráctico para muchas aplicaciones, mientras que para el crecimiento factorial que crece más rápido despúes del punto que n&gt;10 se vuelve impráctico, tal como se aprecia en la gráfica que con un tamaño de entrada <span class="math inline">\(n&gt;13\)</span> el tiempo de ejecución esta en el orden de <span class="math inline">\(x10^{12}\)</span>. Un ejemplo de crecimiento exponencial con base a son los algoritmos recursivos que exploran árboles de decisión, los cuales tienen un patrón que generan todas las combinaciones posibles de elementos, mientras que los algoritmos con crecimiento factorial es común en problemas de permutación donde se considera cada orden posible de los elementos.</p>
+</section>
+<section id="on-vs-onn" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="on-vs-onn"><span class="header-section-number">5.5</span> <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/O(n!)_vs_O(nn).png" class="img-fluid figure-img"></p>
+<figcaption>Comparación <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) vs <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)</figcaption>
+</figure>
+</div>
+<p>Finalmente, el crecimiento exponencial aumenta extremadamente rápido, y de igual manera se vuelve impráctico para muchas aplicaciónes con tamaños de entrada pequeños siendo para <span class="math inline">\(n&gt;8\)</span> que el tiempo de ejecución se vuelve muy grande, esto es más rápido que el crecimiento factorial analizado en la Figura 5. Dentro de lo que cabe es un patrón de crecimiento raro que ocurre cuando cada elemento de una entrada puede tomar <span class="math inline">\(n\)</span> posibles valores y las combinaciones de todos los elementos deben evaluarse</p>
+</section>
+<section id="tabla-de-tiempos-simulados" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="tabla-de-tiempos-simulados"><span class="header-section-number">5.6</span> Tabla de tiempos simulados</h2>
+<p>La tabla presentada muestra los tiempos simulados para algoritmos con diferentes órdenes de crecimiento (<span class="math inline">\(O(1)\)</span>, <span class="math inline">\(O(log n)\)</span>, <span class="math inline">\(O(n)\)</span>, <span class="math inline">\(O(log(n))\)</span>, <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)) en función del tamaño de entrada (<span class="math inline">\(n\)</span>). Los valores se expresan en nanosegundos, simulando el costo computacional con una operación básica que toma 1 ns (<span class="math inline">\(10^-9\)</span> s).</p>
+<p>De la tabla 1 se puede concluir lo siguiente:</p>
+<p>1. <span class="math inline">\(O(1)\)</span> y <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>) son los órdenes de crecimiento más eficientes, ya que el tiempo de ejecución es constante para el caso de <span class="math inline">\(O(1)\)</span> o crece muy lentamente a medida que <span class="math inline">\(n\)</span> aumenta. Esto hace que ambos sean ideales para problemas que requieren alta eficiencia y escalabilidad, incluso con grandes volúmenes de datos.</p>
+<p>2. <span class="math inline">\(O(n)\)</span> y <span class="math inline">\(O\)</span>(<span class="math inline">\(n\)</span> log <span class="math inline">\(n\)</span>) aunque son menos eficientes que los órdenes de crecimiento anteriores, estos siguen siendo adecuados para problemas prácticos en aplicaciones de procesamiento de datos algoritmos de búsqueda ordenamiento.</p>
+<p>3. Los órdenes de crecimiento polinomiales <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) y <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>) siguen siendo manejables pero limitados a tamaños de entrada pequeños o moderados, y su uso en las aplicaciones prácticas debe evaluarse con cuidado.</p>
+<p>4. Los órdenes de crecimiento exponenciales y factoriales (<span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)) son inaplicables para problemas con tamaños de entrada moderados a grandes, y su uso se limita a casos extremadamente pequeños o análisis teóricos. Ya que el orden de crecimiento <span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>) para un tamaño de 100 se obtiene un numero del orden de <span class="math inline">\(1x10^{22}\)</span> ns (<span class="math inline">\(1x10^{13}\)</span> s lo equivalente a 317,000 años). Para el orden de crecimiento <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>), desde el tamaño de <span class="math inline">\(n=30\)</span> se obtiene un tiempo de ejecución en el orden de <span class="math inline">\(1X10^{15}\)</span> segundos (equivalente a 31 millones de años), y finalmente para el orden de crecimiento de <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>) el tiempo de ejecución con un tamaño de n=30 es del orden de los <span class="math inline">\(1X10^{25}\)</span> segundos, lo que equivale a 317,000,000 de eones.</p>
+</section>
+</section>
+<section id="conclusiones" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusiones</h1>
+<ol type="1">
+<li>Órdenes altamente eficientes ( <span class="math inline">\(O(1)\)</span> y <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)): Estos órdenes destacan por su eficiencia y bajo impacto en el costo computacional, incluso con entradas grandes. <span class="math inline">\(O(1)\)</span> permite tiempos constantes, como en el acceso a estructuras indexadas, mientras que <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)), característico de búsquedas binarias, crece lentamente a medida que aumenta el tamaño de entrada, como señalan <span class="citation" data-cites="cormen2022a">(<a href="#ref-cormen2022a" role="doc-biblioref">Cormen et&nbsp;al. 2022b</a>)</span> y <span class="citation" data-cites="goodrich2014">(<a href="#ref-goodrich2014" role="doc-biblioref">Goodrich y Tamassia 2014</a>)</span>. Su escalabilidad los convierte en las mejores opciones para sistemas que manejan grandes volúmenes de datos, como bases de datos o algoritmos de búsqueda en tiempo real.</li>
+<li>Órdenes prácticos (<span class="math inline">\(O(n)\)</span> y <span class="math inline">\(O(\)</span>n log <span class="math inline">\(n\)</span>)): Estos órdenes muestran un crecimiento significativo en el tiempo de ejecución conforme aumenta <span class="math inline">\(n\)</span>. <span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) es típico en algoritmos simples como Bubble Sort, mientras que <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>) se encuentra en problemas como la multiplicación de matrices estándar. Como destacan <span class="citation" data-cites="kleinberg2006a">(<a href="#ref-kleinberg2006a" role="doc-biblioref">Kleinberg y Tardos 2006b</a>)</span> y <span class="citation" data-cites="dasgupta2006">(<a href="#ref-dasgupta2006" role="doc-biblioref">Dasgupta, Papadimitriou, y Vazirani 2006</a>)</span>, estos algoritmos son útiles para problemas educativos o de pequeña escala, pero su aplicabilidad en sistemas con grandes volúmenes de datos es limitada.</li>
+<li>Órdenes polinomiales (<span class="math inline">\(O\)</span>(<span class="math inline">\(n^2\)</span>) y <span class="math inline">\(O\)</span>(<span class="math inline">\(n^3\)</span>)): Aunque estos órdenes son significativamente más lentos, pueden ser útiles en problemas de escala moderada o cuando no existen alternativas más eficientes. Sin embargo, su crecimiento rápido limita su aplicabilidad en escenarios con datos masivos.</li>
+<li>Órdenes exponenciales y factoriales (<span class="math inline">\(O\)</span>(<span class="math inline">\(a^n\)</span>), <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) y <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>)): Estos órdenes tienen un crecimiento extremadamente rápido que los hace imprácticos incluso para tamaños de entrada pequeños. En aplicaciones reales, no son fáctibles para volúmenes de datos moderados a grandes y se limitan a análisis teóricos o casos donde <span class="math inline">\(n\)</span> es muy reducido.</li>
+<li>Casos extremos y variables asintóticamente grandes: Los algoritmos con órdenes como <span class="math inline">\(O\)</span>(<span class="math inline">\(n!\)</span>) y <span class="math inline">\(O\)</span>(<span class="math inline">\(n^n\)</span>) enfrentan barreras físicas y computacionales debido al tiempo y recursos requeridos. Estas complejidades resaltan la importancia de recurrir a enfoques alternativos, como heurísticas o aproximaciones, en problemas complejos donde el tamaño de la entrada crece exponencialmente.</li>
+<li>Simulación y análisis práctico: Las simulaciones realizadas muestran que, si bien los órdenes bajos y medios son útiles y escalables, los órdenes altos y extremos (exponenciales y factoriales) no son prácticos para aplicaciones computacionales. Esto subraya la necesidad de elegir algoritmos con un análisis previo de su comportamiento teórico y práctico.</li>
+<li>Conclusión general: El análisis y las simulaciones confirman que la elección del algoritmo depende directamente de su orden de crecimiento, especialmente en escenarios con grandes volúmenes de datos. Como destacan <span class="citation" data-cites="dasgupta2006">(<a href="#ref-dasgupta2006" role="doc-biblioref">Dasgupta, Papadimitriou, y Vazirani 2006</a>)</span>, diseñar algoritmos eficientes implica priorizar órdenes bajos (<span class="math inline">\(O(1)\)</span> , <span class="math inline">\(O\)</span>(log <span class="math inline">\(n\)</span>)) y evitar órdenes altos en problemas de escala, donde los recursos computacionales son limitados.</li>
+</ol>
+<section id="lista-de-cambios" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="lista-de-cambios"><span class="header-section-number">6.1</span> Lista de Cambios</h2>
+<ul>
+<li>Se corrigieron fallas errores ortográficos</li>
+<li>Se corrifieron errores de palabras repetidas o redundantes</li>
+<li>Se corrigieron referencias a figuras y tablas dentro del documento.</li>
+</ul>
+</section>
+</section>
+<section id="bibliografía" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Bibliografía</h1>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cormen2022" class="csl-entry" role="listitem">
+Cormen, Thomas H., Charles E. Leiserson, Ronald L. Rivest, y Clifford Stein. 2022a. <em>Introduction To Algorithms</em>. 2a ed. MIT Press.
+</div>
+<div id="ref-cormen2022a" class="csl-entry" role="listitem">
+———. 2022b. <em>Introduction To Algorithms</em>. 2a ed. MIT Press.
+</div>
+<div id="ref-dasgupta2006" class="csl-entry" role="listitem">
+Dasgupta, Sanjoy, Christos H. Papadimitriou, y Umesh Virkumar Vazirani. 2006. <em>Algorithms</em>. McGraw-Hill Higher Education.
+</div>
+<div id="ref-goodrich2014" class="csl-entry" role="listitem">
+Goodrich, Michael T., y Roberto Tamassia. 2014. <em>Algorithm Design and Applications</em>. Wiley.
+</div>
+<div id="ref-kleinberg2006" class="csl-entry" role="listitem">
+Kleinberg, Jon, y Éva Tardos. 2006a. <em>Algorithm Design</em>. Pearson/Addison-Wesley.
+</div>
+<div id="ref-kleinberg2006a" class="csl-entry" role="listitem">
+———. 2006b. <em>Algorithm Design</em>. Pearson/Addison-Wesley.
+</div>
+<div id="ref-sedgewick2011" class="csl-entry" role="listitem">
+Sedgewick, Robert, y Kevin Wayne. 2011. <em>Algorithms</em>. Addison-Wesley Professional.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/DSFrankCaza\.github\.io\/Analsis-de-Algoritmos");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Prefacio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prefacio</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./CazaresJose-U2-T2.html" class="pagination-link" aria-label="2A Reporte escrito. Experimentos y análisis de estructuras de datos">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2A Reporte escrito. Experimentos y análisis de estructuras de datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "1A Reporte escrito. Experimentos y análisis"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "José Francisco Cázares Marroquín"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "01/12/2025"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    lang: es-MX</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">    css: styles.css</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">  output: false</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references1.bib</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introducción</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>El análisis de algoritmos constituye un área fundamental en la informática, ya que permite comprender y predecir el rendimiento de soluciones computacionales en diferentes contextos. En este trabajo se estudiarán los principales órdenes de crecimiento que determinan la eficiencia de los algoritmos, contrastando tanto su impacto teórico como sus implicaciones prácticas a través de simulaciones y análisis visual. Este enfoque proporciona las herramientas necesarias para evaluar el costo computacional de las operaciones en función del tamaño de la entrada, un aspecto clave en el diseño y optimización de soluciones informáticas.</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>El crecimiento asintótico, como se detalla en Introduction to Algorithms <span class="co">[</span><span class="ot">@cormen2022</span><span class="co">]</span>, permite clasificar los algoritmos en términos de su rendimiento al trabajar con entradas de gran escala. La notación asintótica—incluyendo $O$, Θ y Ω —es crucial para modelar estos comportamientos, ya que proporciona una descripción simplificada pero robusta del tiempo de ejecución y uso de recursos, independientemente de factores secundarios como la arquitectura de hardware o el lenguaje de programación utilizado.</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>Además, la relevancia de este análisis se extiende al impacto práctico que los algoritmos tienen en sistemas modernos. Según <span class="co">[</span><span class="ot">@sedgewick2011</span><span class="co">]</span>, los algoritmos son fundamentales en diversas disciplinas, desde la inteligencia artificial hasta la computación gráfica, y su eficiencia puede ser el factor decisivo en el éxito o fracaso de una aplicación. Por su parte,<span class="co">[</span><span class="ot">@kleinberg2006</span><span class="co">]</span> enfatizan que el análisis de algoritmos no solo implica evaluar su comportamiento en el peor caso, sino también en promedio y en el mejor caso, lo que proporciona una perspectiva más completa sobre su rendimiento en diferentes escenarios.</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>A lo largo de este documento se abordan las siguientes comparaciones de los órdenes de crecimiento:</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>a.  $O(1)$ vs $O(log n)$</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>b.  $O(n)$ vs $O$($n$ log $n$)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>c.  $O$($n^2$) vs $O$($n^3$)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>d.  $O$($a^n$) vs $O$($n!$)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>e.  $O$($n!$) vs $O$($n^n$)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>Estos casos permiten identificar, tanto en la teoría como en la práctica, cómo diferentes algoritmos escalan con el tamaño de los datos de entrada. Según Cormen et al. (2022), este tipo de análisis no solo facilita una comparación objetiva entre alternativas algorítmicas, sino que también guía el diseño de soluciones eficientes en aplicaciones reales.</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>En términos aplicados, el análisis experimental complementa el teórico al proporcionar una validación práctica del comportamiento de los algoritmos bajo condiciones específicas. Las simulaciones incluidas en este trabajo se realizaron utilizando herramientas computacionales modernas que permiten graficar el rendimiento de los órdenes de crecimiento y calcular tiempos de ejecución simulados. Este enfoque, además de ser didáctico, pone en evidencia los límites prácticos de ciertos algoritmos, especialmente aquellos con un crecimiento exponencial o factorial, donde las operaciones se vuelven computacionalmente inviables incluso para tamaños moderados de entrada.</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>En síntesis, este trabajo no solo contextualiza los fundamentos teóricos del análisis de algoritmos, sino que también los aplica y analiza mediante experimentación computacional, logrando sintetizar las características más relevantes de cada orden de crecimiento. Este enfoque integral permite al lector comprender cómo los algoritmos pueden ser diseñados, seleccionados y evaluados para resolver problemas reales con una gestión óptima de los recursos computacionales.</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># Código utilizado</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Importación de librerías</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>Se utilizará el lenguaje de programación Python para la demostración de los órdenes de crecimiento, para los requerimientos se importarán las librerías matplotlib para graficar los resultados, numpy para las operaciones matemáticas y pandas para el manejo de los datos.</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text.usetex"</span>: <span class="va">False</span>,  <span class="co"># No usar LaTeX</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.family"</span>: <span class="st">"serif"</span>,  <span class="co"># Usa una fuente serif general</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.serif"</span>: <span class="st">"Times New Roman"</span>,  <span class="co"># Alternativa compatible</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.size"</span>: <span class="dv">12</span>,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.titlesize"</span>: <span class="dv">14</span>,</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.labelsize"</span>: <span class="dv">12</span>,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"xtick.labelsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ytick.labelsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"legend.fontsize"</span>: <span class="dv">10</span>,</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"figure.figsize"</span>: (<span class="dv">6</span>, <span class="dv">4</span>),</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"grid.alpha"</span>: <span class="fl">0.6</span>,</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"grid.linestyle"</span>: <span class="st">"--"</span>,</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Funciones de órdenes de crecimiento</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>Para mejor manejo del código se definirá una funcion para cada orden de crecimiento, como se muestra en el siguiente código:</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> o1(n):</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.ones_like(n)  </span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ologn(n):</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.log(n)  </span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on(n):</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n  </span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> onlogn(n):</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">*</span> np.log(n)  </span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on2(n):</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> <span class="dv">2</span>  </span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on3(n):</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> <span class="dv">3</span> </span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a_n(n, a<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">**</span> n  </span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nfact(n):</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([math.factorial(<span class="bu">int</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> n])  </span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nn(n):</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">**</span> n  <span class="co"># O(n^n)</span></span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Eleccion del rango de valores de $n$</span></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>La teoría nos indica que los órdenes de crecimiento constante ($O(1)$) o logarítmico ($O(log n)$) son simples y de bajo costo, por lo que se crea un diccionario donde para el rango seleccionado para los órdenes de crecimiento simples es un rango aproximado de $n=1000$ y conforme el orden de crecimiento se vuelva mas complejo el rango de $n$ disminuye hasta $n=10$.</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>ranges <span class="op">=</span> {</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(1) vs O(log n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">1001</span>),</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n) vs O(n log n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">1001</span>),</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^2) vs O(n^3)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">101</span>),</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(a^n) vs O(n!)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">16</span>),  </span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n!) vs O(n^n)"</span>: np.arange(<span class="dv">1</span>, <span class="dv">11</span>)   </span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>comparisons <span class="op">=</span> [</span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(1)"</span>, o1, <span class="st">"O(log n)"</span>, ologn),</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n)"</span>, on, <span class="st">"O(n log n)"</span>, onlogn),</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n^2)"</span>, on2, <span class="st">"O(n^3)"</span>, on3),</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(2^n)"</span>, <span class="kw">lambda</span> n: a_n(n, <span class="dv">2</span>), <span class="st">"O(n!)"</span>, nfact),</span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"O(n!)"</span>, nfact, <span class="st">"O(n^n)"</span>, nn)</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generación de gráficas</span></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>Para el caso de las gráficas se utilizará la librería de matplotlib, para generar las gráficas de cada comparación de orden de crecimiento y su respectivo análisis.</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"images"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (label1, func1, label2, func2), range_key <span class="kw">in</span> <span class="bu">zip</span>(comparisons, ranges.keys()):</span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>    n_values <span class="op">=</span> ranges[range_key]</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>    y1 <span class="op">=</span> func1(n_values)</span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>    y2 <span class="op">=</span> func2(n_values)</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>    safe_name <span class="op">=</span> range_key.replace(<span class="st">' '</span>, <span class="st">'_'</span>).replace(<span class="st">'/'</span>, <span class="st">'_'</span>).replace(<span class="st">'^'</span>, <span class="st">''</span>).replace(<span class="st">'%'</span>, <span class="st">''</span>)</span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>    plt.plot(n_values, y1, label<span class="op">=</span>label1, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>    plt.plot(n_values, y2, label<span class="op">=</span>label2, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"n"</span>)</span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Orden de crecimiento"</span>)</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>    plt.title(range_key)</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="ss">f"images/</span><span class="sc">{</span>safe_name<span class="sc">}</span><span class="ss">.png"</span>)</span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a>    plt.close()</span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>nanosecond <span class="op">=</span> <span class="fl">1e-9</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>tamanos <span class="op">=</span> [<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">100000</span>]</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>tiempo_simulado <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tamano"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">int</span>),</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(1)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(logn)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(nlogn)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^2)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^3)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">float</span>),</span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(a^n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>),  </span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n!)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>),</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>    <span class="st">"O(n^n)"</span>: pd.Series(dtype<span class="op">=</span><span class="bu">object</span>)  </span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> tamanos:</span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>    tiempo_simulado <span class="op">=</span> pd.concat([</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>        tiempo_simulado,</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame({</span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Tamano"</span>: [n],</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(1)"</span>: [nanosecond],</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(logn)"</span>: [nanosecond <span class="op">*</span> np.log(n)],</span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n)"</span>: [nanosecond <span class="op">*</span> n],</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(nlogn)"</span>: [nanosecond <span class="op">*</span> n <span class="op">*</span> np.log(n)],</span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^2)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span><span class="dv">2</span>],</span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^3)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span><span class="dv">3</span>],</span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(a^n)"</span>: [nanosecond <span class="op">*</span> <span class="dv">2</span><span class="op">**</span>n  <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">1000</span> <span class="cf">else</span> <span class="st">"Overflow"</span> ],  </span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n!)"</span>: [nanosecond <span class="op">*</span> math.factorial(n) <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">31</span> <span class="cf">else</span> <span class="st">"Overflow"</span>], </span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a>            <span class="st">"O(n^n)"</span>: [nanosecond <span class="op">*</span> n<span class="op">**</span>n <span class="cf">if</span> n<span class="op">&lt;</span><span class="dv">31</span> <span class="cf">else</span> <span class="st">"Overflow"</span>],  </span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>    ], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_rows"</span>, <span class="va">None</span>)</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_columns"</span>, <span class="va">None</span>)</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>tiempo_simulado.columns <span class="op">=</span> [</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>    col.replace(<span class="st">"^"</span>, <span class="vs">r"\^"</span>).replace(<span class="st">"_"</span>, <span class="vs">r"\_"</span>) <span class="cf">for</span> col <span class="kw">in</span> tiempo_simulado.columns</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>latex_code <span class="op">=</span> <span class="vs">r"""</span></span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="vs">\begin</span><span class="sc">{table}</span><span class="vs">[H]</span></span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="vs">\centering</span></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="vs">\resizebox{0.85\textwidth}{!}{%</span></span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="vs">"""</span> <span class="op">+</span> tiempo_simulado.to_latex(index<span class="op">=</span><span class="va">False</span>, escape<span class="op">=</span><span class="va">False</span>) <span class="op">+</span> <span class="vs">r"""</span></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="vs">}</span></span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a><span class="vs">\caption{Tiempos simulados para diferentes ordenes de crecimiento.}</span></span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="vs">\label{tab:tiempos_simulados}</span></span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a><span class="vs">\end</span><span class="sc">{table}</span></span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="vs">"""</span></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"tabla_tiempos.tex"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>    f.write(latex_code)</span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="fu"># Resultados y Discusión</span></span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>A continuación se presentan las gráficas obtenidas para cada comparación de órdenes de crecimiento, acompañadas de un análisis correspondiente.</span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## $O$(1) vs $O$(log $n$)</span></span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">Comparación $O(1)$ vs $O$(log $n$)</span><span class="co">]</span>(images/O(1)_vs_O(log_n).png){#CTELOG fig-align="center"}</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>En la Figura 1, se observa cómo el orden constante $O$(1) se mantiene invariable independientemente del tamaño de entrada, mientras que ( $O$(log $n$) ) crece lentamente a medida que aumenta el tamaño de la entrada, un ejemplo de una función que tenga un orden de crecimiento logarítmico podría ser la búsqueda binaria en una lista ordenada. El orden de crecimiento constante denota que no importa el tamaño de la entrada; el tiempo de ejecución es el mismo, un ejemplo de esto podria ser el acceder al primer elemento de una lista.</span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a><span class="fu">## $O(n)$ vs $O$($n$ log $n$)</span></span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">Comparación $O(n)$ vs $O$($n$ log $n$)</span><span class="co">]</span>(images/O(n)_vs_O(n_log_n).png)</span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>En la Figura 2 se compara el crecimiento lineal ($O(n)$) con el crecimiento lineal logarítmico ($O$($n$ log $n$)), en el primero el tiempo de ejecución crece proporcionalmente al tamaño de la entrada, mientras que el crecimiento lineal logarítmico a entradas más grandes el tiempo de ejecución aumenta varias veces en comparación con el crecimiento lineal. Por dar ejemplos de cada uno un algoritmo de crecimiento lineal puede ser un algoritmo de búsqueda que recorre una lista para encontrar un elemento, mientras que un algoritmo de crecimiento lineal logarítmico es común en algoritmos de ordenamiento, como Merge Sort.</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## $O$($n^2$) vs $O$($n^3$)</span></span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">Comparación $O$($n^2$) vs $O$($n^3$)</span><span class="co">]</span>(images/O(n2)_vs_O(n3).png)</span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>La comparación del crecimiento cuadrático y el crecimiento cúbico se observan en la figura 3. Según sea el caso, el tiempo de ejecucion crece con el cuadrado o el cubo del tamaño de la entrada. Siendo que el crecimiento cúbico alcanza mayores tiempos de ejecución con menores tamaños de entrada. El crecimiento cuadrático se puede observar en algoritmos de ordenamiento simples como Bubble Sort, mientras que el crecimiento cúbico es común en algoritmos que involucran múltiples bucles anidados procesando una matriz tridimensional.</span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a><span class="fu">## $O$($a^n$) vs $O$($n!$)</span></span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">Comparación $O$($a^n$) vs $O$($n!$)</span><span class="co">]</span>(images/O(an)_vs_O(n!).png)</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>En el caso de la comparación del crecimiento exponencial con base a y el crecimiento factorial. Los algoritmos de crecimiento factorial son más rapidos que los de crecimiento exponencial ya que, ambos crecen rápidamente aunque con pequeños tamaños de de entrada se ve una clara aceleración de crecimiento de parte del algoritmo factorial. Ambos crecen rápidamente, y llegan al punto de que el tiempo de ejecución aumenta tanto que los algoritmos se vuelven imprácticos por su alto tiempo de ejecución, para el crecimiento exponencial con base a se puede decir que si $n&gt;20$ el tiempo de ejecución se vuelve impráctico para muchas aplicaciones, mientras que para el crecimiento factorial que crece más rápido despúes del punto que n<span class="sc">\&gt;</span>10 se vuelve impráctico, tal como se aprecia en la gráfica que con un tamaño de entrada $n&gt;13$ el tiempo de ejecución esta en el orden de $x10^{12}$. Un ejemplo de crecimiento exponencial con base a son los algoritmos recursivos que exploran árboles de decisión, los cuales tienen un patrón que generan todas las combinaciones posibles de elementos, mientras que los algoritmos con crecimiento factorial es común en problemas de permutación donde se considera cada orden posible de los elementos.</span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## $O$($n!$) vs $O$($n^n$)</span></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">Comparación $O$($n!$) vs $O$($n^n$)</span><span class="co">]</span>(images/O(n!)_vs_O(nn).png)</span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>Finalmente, el crecimiento exponencial aumenta extremadamente rápido, y de igual manera se vuelve impráctico para muchas aplicaciónes con tamaños de entrada pequeños siendo para $n&gt;8$ que el tiempo de ejecución se vuelve muy grande, esto es más rápido que el crecimiento factorial analizado en la Figura 5. Dentro de lo que cabe es un patrón de crecimiento raro que ocurre cuando cada elemento de una entrada puede tomar $n$ posibles valores y las combinaciones de todos los elementos deben evaluarse</span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tabla de tiempos simulados</span></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>La tabla presentada muestra los tiempos simulados para algoritmos con diferentes órdenes de crecimiento ($O(1)$, $O(log n)$, $O(n)$, $O(log(n))$, $O$($n^2$), $O$($n^3$), $O$($a^n$), $O$($n!$), $O$($n^n$)) en función del tamaño de entrada ($n$). Los valores se expresan en nanosegundos, simulando el costo computacional con una operación básica que toma 1 ns ($10^-9$ s).</span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{=latex}</span></span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a><span class="in">\input{tabla_tiempos.tex}</span></span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>De la tabla 1 se puede concluir lo siguiente:</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>1<span class="sc">\.</span> $O(1)$ y $O$(log $n$) son los órdenes de crecimiento más eficientes, ya que el tiempo de ejecución es constante para el caso de $O(1)$ o crece muy lentamente a medida que $n$ aumenta. Esto hace que ambos sean ideales para problemas que requieren alta eficiencia y escalabilidad, incluso con grandes volúmenes de datos.</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>2<span class="sc">\.</span> $O(n)$ y $O$($n$ log $n$) aunque son menos eficientes que los órdenes de crecimiento anteriores, estos siguen siendo adecuados para problemas prácticos en aplicaciones de procesamiento de datos algoritmos de búsqueda ordenamiento.</span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a>3<span class="sc">\.</span> Los órdenes de crecimiento polinomiales $O$($n^2$) y $O$($n^3$) siguen siendo manejables pero limitados a tamaños de entrada pequeños o moderados, y su uso en las aplicaciones prácticas debe evaluarse con cuidado.</span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a>4<span class="sc">\.</span> Los órdenes de crecimiento exponenciales y factoriales ($O$($a^n$), $O$($n!$), $O$($n^n$)) son inaplicables para problemas con tamaños de entrada moderados a grandes, y su uso se limita a casos extremadamente pequeños o análisis teóricos. Ya que el orden de crecimiento $O$($a^n$) para un tamaño de 100 se obtiene un numero del orden de $1x10^{22}$ ns ($1x10^{13}$ s lo equivalente a 317,000 años). Para el orden de crecimiento $O$($n!$), desde el tamaño de $n=30$ se obtiene un tiempo de ejecución en el orden de $1X10^{15}$ segundos (equivalente a 31 millones de años), y finalmente para el orden de crecimiento de $O$($n^n$) el tiempo de ejecución con un tamaño de n=30 es del orden de los $1X10^{25}$ segundos, lo que equivale a 317,000,000 de eones.</span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusiones</span></span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Órdenes altamente eficientes ( $O(1)$ y $O$(log $n$)): Estos órdenes destacan por su eficiencia y bajo impacto en el costo computacional, incluso con entradas grandes. $O(1)$ permite tiempos constantes, como en el acceso a estructuras indexadas, mientras que $O$(log $n$)), característico de búsquedas binarias, crece lentamente a medida que aumenta el tamaño de entrada, como señalan <span class="co">[</span><span class="ot">@cormen2022a</span><span class="co">]</span> y <span class="co">[</span><span class="ot">@goodrich2014</span><span class="co">]</span>. Su escalabilidad los convierte en las mejores opciones para sistemas que manejan grandes volúmenes de datos, como bases de datos o algoritmos de búsqueda en tiempo real.</span>
+<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Órdenes prácticos ($O(n)$ y $O($n log $n$)): Estos órdenes muestran un crecimiento significativo en el tiempo de ejecución conforme aumenta $n$. $O$($n^2$) es típico en algoritmos simples como Bubble Sort, mientras que $O$($n^3$) se encuentra en problemas como la multiplicación de matrices estándar. Como destacan <span class="co">[</span><span class="ot">@kleinberg2006a</span><span class="co">]</span> y <span class="co">[</span><span class="ot">@dasgupta2006</span><span class="co">]</span>, estos algoritmos son útiles para problemas educativos o de pequeña escala, pero su aplicabilidad en sistemas con grandes volúmenes de datos es limitada.</span>
+<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Órdenes polinomiales ($O$($n^2$) y $O$($n^3$)): Aunque estos órdenes son significativamente más lentos, pueden ser útiles en problemas de escala moderada o cuando no existen alternativas más eficientes. Sin embargo, su crecimiento rápido limita su aplicabilidad en escenarios con datos masivos.</span>
+<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Órdenes exponenciales y factoriales ($O$($a^n$), $O$($n!$) y $O$($n^n$)): Estos órdenes tienen un crecimiento extremadamente rápido que los hace imprácticos incluso para tamaños de entrada pequeños. En aplicaciones reales, no son fáctibles para volúmenes de datos moderados a grandes y se limitan a análisis teóricos o casos donde $n$ es muy reducido.</span>
+<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Casos extremos y variables asintóticamente grandes: Los algoritmos con órdenes como $O$($n!$) y $O$($n^n$) enfrentan barreras físicas y computacionales debido al tiempo y recursos requeridos. Estas complejidades resaltan la importancia de recurrir a enfoques alternativos, como heurísticas o aproximaciones, en problemas complejos donde el tamaño de la entrada crece exponencialmente.</span>
+<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Simulación y análisis práctico: Las simulaciones realizadas muestran que, si bien los órdenes bajos y medios son útiles y escalables, los órdenes altos y extremos (exponenciales y factoriales) no son prácticos para aplicaciones computacionales. Esto subraya la necesidad de elegir algoritmos con un análisis previo de su comportamiento teórico y práctico.</span>
+<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Conclusión general: El análisis y las simulaciones confirman que la elección del algoritmo depende directamente de su orden de crecimiento, especialmente en escenarios con grandes volúmenes de datos. Como destacan <span class="co">[</span><span class="ot">@dasgupta2006</span><span class="co">]</span>, diseñar algoritmos eficientes implica priorizar órdenes bajos ($O(1)$ , $O$(log $n$)) y evitar órdenes altos en problemas de escala, donde los recursos computacionales son limitados.</span>
+<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lista de Cambios</span></span>
+<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Se corrigieron fallas errores ortográficos</span>
+<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Se corrifieron errores de palabras repetidas o redundantes</span>
+<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Se corrigieron referencias a figuras y tablas dentro del documento. </span>
+<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bibliografía</span></span>
+</code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" class="img-fluid"></a> <br> Esta obra está bajo una <a href="http://creativecommons.org/licenses/by-sa/4.0/">Licencia Creative Commons Atribución-CompartirIgual 4.0 Internacional</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
